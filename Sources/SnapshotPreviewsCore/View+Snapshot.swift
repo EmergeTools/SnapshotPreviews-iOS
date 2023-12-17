@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import UIKit
+import AccessibilitySnapshotCore
 
 enum RenderingError: Error {
   case failedRendering
@@ -40,11 +41,17 @@ extension View {
 
       if async {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-          completion(Self.takeSnapshot(layout: layout, renderingMode: renderingMode, rootVC: containerVC, controller: controller), precision)
+          completion(Self.takeSnapshot(layout: layout, renderingMode: renderingMode, rootVC: containerVC, targetView: controller.view), precision)
         }
       } else {
         DispatchQueue.main.async {
-          completion(Self.takeSnapshot(layout: layout, renderingMode: renderingMode, rootVC: containerVC, controller: controller), precision)
+          let a11yView = AccessibilitySnapshotView(
+            containedView: view,
+            viewRenderingMode: .renderLayerInContext,
+            activationPointDisplayMode: .always,
+            showUserInputLabels: true)
+          try? a11yView.parseAccessibility(useMonochromeSnapshot: false)
+          completion(Self.takeSnapshot(layout: layout, renderingMode: renderingMode, rootVC: containerVC, targetView: a11yView), precision)
         }
       }
     }
@@ -82,9 +89,9 @@ extension View {
     layout: PreviewLayout,
     renderingMode: EmergeRenderingMode?,
     rootVC: UIViewController,
-    controller: UIViewController) -> Result<UIImage, Error>
+    targetView: UIView) -> Result<UIImage, Error>
   {
-    let view = controller.view!
+    let view = targetView
     let drawCode: (CGContext) -> Void
 
     CATransaction.commit()
