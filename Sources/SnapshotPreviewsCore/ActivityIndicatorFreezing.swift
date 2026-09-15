@@ -1,4 +1,4 @@
-#if canImport(UIKit)
+#if canImport(UIKit) && !os(watchOS)
 import UIKit
 import ObjectiveC
 
@@ -11,12 +11,17 @@ enum ActivityIndicatorFreezing {
     method_exchangeImplementations(original, replacement)
   }()
 
+  static func isEnabled(environment: [String: String] = ProcessInfo.processInfo.environment) -> Bool {
+    environment["EMERGE_DISABLE_FREEZE_SPINNERS"] != "1"
+  }
+
   static func install() {
+    guard isEnabled() else { return }
     _ = installed
   }
 }
 
 private extension UIActivityIndicatorView {
-  @objc func emg_frozenStartAnimating() {}
+  @objc dynamic func emg_frozenStartAnimating() {}
 }
 #endif

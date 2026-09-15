@@ -1,4 +1,4 @@
-#if canImport(UIKit)
+#if canImport(UIKit) && !os(watchOS)
 import XCTest
 import UIKit
 @testable import SnapshotPreviewsCore
@@ -12,6 +12,14 @@ final class ActivityIndicatorFreezingTests: XCTestCase {
     indicator.startAnimating()
 
     XCTAssertFalse(indicator.isAnimating)
+  }
+
+  func testFreezingIsEnabledByDefault() {
+    XCTAssertTrue(ActivityIndicatorFreezing.isEnabled(environment: [:]))
+  }
+
+  func testFreezingIsDisabledByEnvironmentVariable() {
+    XCTAssertFalse(ActivityIndicatorFreezing.isEnabled(environment: ["EMERGE_DISABLE_FREEZE_SPINNERS": "1"]))
   }
 }
 #endif
