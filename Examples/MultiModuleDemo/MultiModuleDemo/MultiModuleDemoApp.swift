@@ -8,3 +8,4 @@ struct MultiModuleDemoApp: App {
     }
   }
 }
+
