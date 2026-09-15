@@ -68,6 +68,9 @@ private let testHandler: NSObject.Type? = NSClassFromString("EMGTestHandler") as
 
 extension RenderingStrategy {
   static func setup() {
+    #if canImport(UIKit)
+    ActivityIndicatorFreezing.install()
+    #endif
     testHandler?.perform(NSSelectorFromString("setup"))
   }
 }
