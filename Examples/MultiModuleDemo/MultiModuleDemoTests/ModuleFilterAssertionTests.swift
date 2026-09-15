@@ -14,7 +14,7 @@ final class ModuleFilterAssertionTests: XCTestCase {
       excludedModules: nil
     )
 
-    XCTAssertEqual(previews.count, 8)
+    XCTAssertEqual(previews.count, 9)
     XCTAssertTrue(previews.contains { $0.typeName.hasPrefix("ModuleA.") })
     XCTAssertTrue(previews.contains { $0.typeName.hasPrefix("ModuleB.") })
     XCTAssertTrue(previews.contains { $0.typeName.hasPrefix("ModuleC.") })
