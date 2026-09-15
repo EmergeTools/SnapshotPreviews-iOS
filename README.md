@@ -220,7 +220,7 @@ Display names should be unique within each `PreviewProvider`, or within a file w
 
 Snapshot previews should be deterministic. Avoid live network calls, timers, animations that do not settle, locale-dependent data, and dates generated from the current clock. Prefer fixed fixtures and mocked dependencies so the same preview renders the same pixels in Xcode, local test runs, and CI.
 
-During snapshot rendering, `UIActivityIndicatorView.startAnimating()` is a no-op, so indeterminate spinners (including SwiftUI's default `ProgressView`) never start and are hidden instead of being captured mid-rotation. Set `EMERGE_DISABLE_FREEZE_SPINNERS=1` in the test environment to opt out.
+During snapshot rendering, `UIActivityIndicatorView.startAnimating()` is a no-op, so indeterminate spinners (including SwiftUI's default `ProgressView`) never start and are hidden instead of being captured mid-rotation. Set `SNAPSHOTS_DISABLE_FREEZE_SPINNERS=1` in the test environment to opt out.
 
 ### Detecting the snapshot environment
 

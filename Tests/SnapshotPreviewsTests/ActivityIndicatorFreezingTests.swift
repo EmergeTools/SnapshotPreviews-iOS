@@ -19,7 +19,7 @@ final class ActivityIndicatorFreezingTests: XCTestCase {
   }
 
   func testFreezingIsDisabledByEnvironmentVariable() {
-    XCTAssertFalse(ActivityIndicatorFreezing.isEnabled(environment: ["EMERGE_DISABLE_FREEZE_SPINNERS": "1"]))
+    XCTAssertFalse(ActivityIndicatorFreezing.isEnabled(environment: ["SNAPSHOTS_DISABLE_FREEZE_SPINNERS": "1"]))
   }
 }
 #endif

@@ -6,13 +6,13 @@ enum ActivityIndicatorFreezing {
   private static let installed: Void = {
     guard
       let original = class_getInstanceMethod(UIActivityIndicatorView.self, #selector(UIActivityIndicatorView.startAnimating)),
-      let replacement = class_getInstanceMethod(UIActivityIndicatorView.self, #selector(UIActivityIndicatorView.emg_frozenStartAnimating))
+      let replacement = class_getInstanceMethod(UIActivityIndicatorView.self, #selector(UIActivityIndicatorView.snapshotPreviews_frozenStartAnimating))
     else { return }
     method_exchangeImplementations(original, replacement)
   }()
 
   static func isEnabled(environment: [String: String] = ProcessInfo.processInfo.environment) -> Bool {
-    environment["EMERGE_DISABLE_FREEZE_SPINNERS"] != "1"
+    environment["SNAPSHOTS_DISABLE_FREEZE_SPINNERS"] != "1"
   }
 
   static func install() {
@@ -22,6 +22,6 @@ enum ActivityIndicatorFreezing {
 }
 
 private extension UIActivityIndicatorView {
-  @objc dynamic func emg_frozenStartAnimating() {}
+  @objc dynamic func snapshotPreviews_frozenStartAnimating() {}
 }
 #endif
