@@ -29,6 +29,19 @@ public struct ModuleALabel: View {
   }
 }
 
+public struct ModuleALoadingIndicator: View {
+  public init() {}
+
+  public var body: some View {
+    VStack(spacing: 12) {
+      ProgressView()
+      Text("Loading")
+        .font(.subheadline)
+    }
+    .padding()
+  }
+}
+
 #Preview("ModuleA Button") {
   ModuleAButton()
 }
@@ -41,4 +54,8 @@ public struct ModuleALabel: View {
 #Preview("ModuleA Label Dark") {
   ModuleALabel()
     .preferredColorScheme(.dark)
+}
+
+#Preview("ModuleA Loading Indicator") {
+  ModuleALoadingIndicator()
 }
